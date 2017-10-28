@@ -1,0 +1,14 @@
+@import '../../stylesheets/component_config';
+
+.login-form {
+  width: 100%;
+  padding: 40px 30px;
+
+  .jid-wrapper {
+    width: 100%;
+  }
+
+  .jid, .domain, .password, .login-button {
+    margin: 10px 20px;
+  }
+}

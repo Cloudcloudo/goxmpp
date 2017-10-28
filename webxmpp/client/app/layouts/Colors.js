@@ -1,0 +1,22 @@
+export const basicColors = {
+  biscay: 'rgb(28, 32, 92)',
+  bigStone: '#171A3F',
+  biscayDisabled: 'rgba(28, 32, 92, .5)',
+  lightGray: 'rgb(238, 238, 238)',
+  wildSand: '#F5F5F5',
+  cornFlower: 'rgba(55, 106, 199, 1)',
+  mariner: 'rgb(43, 103, 213)',
+  curiousBlue: 'rgb(30, 136, 229)',
+  bondiBlue: 'rgb( 0, 151, 167)',
+  porcelain: '#F6F7F8',
+  gallery: '#eeeeee',
+  alto: '#dddddd',
+  silver: '#cccccc',
+  selectiveYellow: 'rgb(255, 187, 0)',
+  pizzas: 'rgb(255, 143, 0)',
+  blazeOrange: 'rgb(255, 102, 0)',
+  crusta: 'rgb(255, 136, 56)',
+  mineShaft: 'rgb(51, 51, 51)',
+  crimson: 'rgb(235, 18, 18)',
+  indigo: '#376AC7'
+};

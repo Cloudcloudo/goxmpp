@@ -1,0 +1,109 @@
+@import '../../stylesheets/component_config';
+
+//source: https://github.com/callmenick/Animating-Hamburger-Icons
+
+$button-width: 65px;                    // The width of the button area
+$button-height: 65px;                   // The height of the button area
+$bar-thickness: 1px;                    // The thickness of the button bars
+$button-pad: 16px;                      // The left/right padding between button area and bars.
+$button-bar-space: 10px;                // The spacing between button bars
+$button-transistion-duration: .3s;     // The transition duration
+
+$button-bars-color: rgb(255,255,255);
+$button-background: transparent;
+$button-active-background: transparent;
+
+.c-hamburger {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  width: $button-width;
+  height: $button-height;
+  font-size: 0;
+  text-indent: -9999px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  box-shadow: none;
+  border-radius: none;
+  border: none;
+  cursor: pointer;
+  transition: background $button-transistion-duration;
+
+  &:focus {
+    outline: none;
+  }
+
+  span {
+    display: block;
+    position: absolute;
+    top: ($button-height / 2) - ($bar-thickness / 2);
+    left: $button-pad;
+    right: $button-pad;
+    height: $bar-thickness;
+    background: $button-bars-color;
+
+    &::before, &::after {
+      position: absolute;
+      display: block;
+      left: 0;
+      width: 100%;
+      height: $bar-thickness;
+      background-color: #fff;
+      content: "";
+    }
+
+    &::before {
+      top: -$bar-thickness - $button-bar-space;
+    }
+
+    &::after {
+      bottom: -$bar-thickness - $button-bar-space;
+    }
+  }
+}
+
+.c-hamburger--htx {
+  background-color: $button-background;
+
+  span {
+    transition: background .3s $button-transistion-duration;
+
+    &::before, &::after {
+      transition-duration: $button-transistion-duration, $button-transistion-duration;
+      transition-delay: $button-transistion-duration, .3s;
+    }
+
+    &::before {
+      transition-property: top, transform;
+    }
+
+    &::after {
+      transition-property: bottom, transform;
+    }
+  }
+
+  &.is-active {
+    background-color: $button-active-background;
+
+    span {
+      background: none;
+
+      &::before {
+        top: 0;
+        transform: rotate(45deg);
+      }
+
+      &::after {
+        bottom: 0;
+        transform: rotate(-45deg);
+      }
+
+      &::before, &::after {
+        transition-delay: .3s, $button-transistion-duration;
+      }
+    }
+  }
+}

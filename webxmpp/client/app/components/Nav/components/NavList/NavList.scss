@@ -1,0 +1,21 @@
+@import '../../../../stylesheets/component_config';
+
+.navigation-list-wrapper{
+  display: block;
+  max-height: 0;
+  overflow: hidden;
+  transition: all .3s;
+  &.is-active {
+    max-height: 1000px;
+    transition: all .7s;
+  }
+  @include breakpoint('m'){
+    max-height: none;
+    overflow: inherit;
+    display: inline-block;
+    position: absolute;
+    top: 37px;
+    right: 65px;
+    transform: translateY(-40%);
+  }
+}

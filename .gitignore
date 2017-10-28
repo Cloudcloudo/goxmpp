@@ -1,0 +1,8 @@
+.directory
+bin/
+.idea/*
+.pkg/*
+pkg/*
+vendor
+webxmpp/client/node_modules
+

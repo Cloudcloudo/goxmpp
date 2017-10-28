@@ -1,0 +1,98 @@
+@import "~bourbon-neat/core/neat";
+
+// min or max
+$media-direction: min;  // min / max — default is min (mobile first)
+
+$breakpoints: (
+  default:  0px,
+  xs:       480px,
+  s:        667px,
+  m:        1024px,
+  xm:       1160px,
+  l:        1280px,
+  xl:       1680px,
+);
+
+@mixin breakpoint( $breakpoint, $direction: $media-direction ) {
+
+  @if map-has-key($breakpoints, $breakpoint) {
+    $custom-width: if($direction == 'max', map-get($breakpoints, $breakpoint) - 1px, map-get($breakpoints, $breakpoint) );
+    @media (#{$direction}-width: #{$custom-width}) {
+      @content;
+    }
+  }
+
+  @else if unitless($breakpoint) {
+    $breakpoint: $breakpoint + 0px;
+
+    @media (#{$direction}-width: $breakpoint) {
+      @content;
+    }
+  }
+}
+
+// retina images should have @2x suffix eg. banner.jpg -> banner@2x.jpg
+@mixin background-image-retina($file, $type) {
+    background-image: url($file + '.' + $type);
+    @media only screen and (-webkit-min-device-pixel-ratio: 2),
+        only screen and (-moz-min-device-pixel-ratio: 2),
+        only screen and (-o-min-device-pixel-ratio: 2/1),
+        only screen and (min-device-pixel-ratio: 2),
+        only screen and (min-resolution: 192dpi),
+        only screen and (min-resolution: 2dppx){
+        & {
+            background-image: url($file + '@2x.' + $type);
+        }
+    }
+}
+
+$neat-grid: (
+  columns: 12,
+  gutter: 20px,
+);
+
+@mixin grid( $grid, $columns: 12, $gutter: 20px ){
+
+    $custom-grid: (
+      columns: $columns,
+      gutter: $gutter,
+    );
+
+    @if map-has-key( $grid, 'df' ){
+      @include breakpoint('default') {
+        @include grid-column( map-get($grid, 'df'), $custom-grid );
+      }
+    }
+    @if map-has-key( $grid, 'xs' ){
+      @include breakpoint('xs') {
+        @include grid-column( map-get($grid, 'xs'), $custom-grid );
+      }
+    }
+    @if map-has-key( $grid, 's' ){
+      @include breakpoint('s') {
+        @include grid-column( map-get($grid, 's'), $custom-grid );
+      }
+    }
+    @if map-has-key( $grid, 'm' ){
+      @include breakpoint('m') {
+        @include grid-column( map-get($grid, 'm'), $custom-grid );
+      }
+    }
+    @if map-has-key( $grid, 'l' ){
+      @include breakpoint('l') {
+        @include grid-column( map-get($grid, 'l'), $custom-grid );
+      }
+    }
+    @if map-has-key( $grid, 'xl' ){
+      @include breakpoint('xl') {
+        @include grid-column( map-get($grid, 'xl'), $custom-grid );
+      }
+    }
+
+}
+
+@mixin custom-grid-collapse( $gutter: 20px ){
+  margin-left: $gutter*(-1);
+  margin-right: $gutter*(-1);
+  width: calc(100% + #{$gutter*(2)} );
+}

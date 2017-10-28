@@ -1,0 +1,2 @@
+CREATE DATABASE goxmpp ;
+CREATE USER goxmpp_user WITH PASSWORD 'aZ82w2E-aXwNch5';

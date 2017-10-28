@@ -1,0 +1,49 @@
+@import '../../../../stylesheets/component_config.scss';
+
+.message-window {
+  display: inline-block;
+  width: 80%;
+  height: 100%;
+
+  .messages {
+    height: 400px;
+    list-style: none;
+    overflow-y: auto;
+
+    li {
+      padding: 10px;
+
+      span {
+        color: white;
+        background-color: #2473b9;
+        padding: 5px;
+        border-radius: 5px;
+
+        &.self {
+          background-color: #C1C1C1;
+        }
+        &.red {
+          background-color: red;
+        }
+        &.green {
+          background-color: #3fb374;
+        }
+        &.blue {
+          background-color: #2473b9;
+        }
+        &.purple {
+          background-color: #432772;
+        }
+      }
+    }
+  }
+
+  form {
+    padding: 0 5px;
+
+    .msg-box {
+      width: 100%;
+    }
+  }
+
+}

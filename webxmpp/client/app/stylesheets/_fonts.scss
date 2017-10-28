@@ -1,0 +1,24 @@
+@font-face { //Titillium-Light
+  font-family: 'Titillium';
+  font-style: normal;
+  font-weight: 300;
+  src: url('../assets/fonts/TitilliumWeb-Light.woff2') format('woff2'),
+       url('../assets/fonts/TitilliumWeb-Light.woff') format('woff'),
+       url('../assets/fonts/TitilliumWeb-Light.ttf') format('truetype');
+}
+
+@font-face { //Titillium-Bold
+  font-family: 'Titillium';
+  font-style: normal;
+  font-weight: 600;
+  src: url('../assets/fonts/TitilliumWeb-Bold.woff2') format('woff2'),
+       url('../assets/fonts/TitilliumWeb-Bold.woff') format('woff'),
+       url('../assets/fonts/TitilliumWeb-Bold.ttf') format('truetype');
+}
+
+
+$titillium: 'Titillium', sans-serif;
+
+// hint: controll font weight with this variables
+$bold: 600;
+$light: 300;

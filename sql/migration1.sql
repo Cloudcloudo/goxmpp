@@ -1,0 +1,3 @@
+ALTER TABLE users
+  ADD COLUMN token TEXT DEFAULT '',
+  ADD COLUMN token_expiration TIMESTAMP;

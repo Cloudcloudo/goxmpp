@@ -1,0 +1,31 @@
+@import '../../../../stylesheets/component_config.scss';
+
+.color-changer {
+  display: inline-block;
+  width: 20%;
+  height: 100%;
+  list-style: none;
+
+  li {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+
+    margin: 10px;
+
+    border: solid #555 2px;
+
+    &.red {
+      background-color: red;
+    }
+    &.green {
+      background-color: #3fb374;
+    }
+    &.blue {
+      background-color: #2473b9;
+    }
+    &.purple {
+      background-color: #432772;
+    }
+  }
+}

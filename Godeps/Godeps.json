@@ -1,0 +1,43 @@
+{
+	"ImportPath": "goxmpp",
+	"GoVersion": "go1.9",
+	"GodepVersion": "v79",
+	"Packages": [
+		"./..."
+	],
+	"Deps": [
+		{
+			"ImportPath": "github.com/gorilla/handlers",
+			"Comment": "v1.3.0",
+			"Rev": "90663712d74cb411cbef281bc1e08c19d1a76145"
+		},
+		{
+			"ImportPath": "github.com/gorilla/mux",
+			"Comment": "v1.6.0-9-g53c1911",
+			"Rev": "53c1911da2b537f792e7cafcb446b05ffe33b996"
+		},
+		{
+			"ImportPath": "github.com/gorilla/websocket",
+			"Comment": "v1.2.0-26-g292fd08",
+			"Rev": "292fd08b2560ad524ee37396253d71570339a821"
+		},
+		{
+			"ImportPath": "github.com/lib/pq",
+			"Comment": "go1.0-cutoff-195-g83612a5",
+			"Rev": "83612a56d3dd153a94a629cd64925371c9adad78"
+		},
+		{
+			"ImportPath": "github.com/lib/pq/oid",
+			"Comment": "go1.0-cutoff-195-g83612a5",
+			"Rev": "83612a56d3dd153a94a629cd64925371c9adad78"
+		},
+		{
+			"ImportPath": "golang.org/x/crypto/bcrypt",
+			"Rev": "94eea52f7b742c7cbe0b03b22f0c4c8631ece122"
+		},
+		{
+			"ImportPath": "golang.org/x/crypto/blowfish",
+			"Rev": "94eea52f7b742c7cbe0b03b22f0c4c8631ece122"
+		}
+	]
+}

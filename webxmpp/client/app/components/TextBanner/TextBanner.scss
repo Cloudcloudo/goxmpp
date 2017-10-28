@@ -1,0 +1,19 @@
+@import '../../stylesheets/component_config';
+
+.text-banner {
+  width: 100%;
+  position: relative;
+  background-color: $lht-background-table;
+  .banner-header {
+    text-align: center;
+    width: 100%;
+    display: inline-block;
+    font-size: 2.8rem;
+    position: absolute;
+    color: $lht-labels;
+    text-transform: uppercase;
+    top: 40%;
+    left: 0;
+    transform: translateY(-50%);
+  }
+}

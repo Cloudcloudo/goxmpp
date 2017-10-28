@@ -1,0 +1,11 @@
+{
+  "type": "message",
+  "payload": {
+    "name": "message",
+    "from": "szymon@localhost",
+    "id": "as12da11",
+    "to": "alicja@localhost",
+    "type": "chat",
+    "body": "Test wiadomości z Webscoketów"
+  }
+}
