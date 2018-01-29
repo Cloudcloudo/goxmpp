@@ -1,28 +1,28 @@
 
 
-#CHECK USER JID
+# CHECK USER JID
 
 **GET** `/users/{ jid_localpart }`
-###RESPONSE
+### RESPONSE
 
 200 - OK - user exists
 
 404 - Not found
 
-#REGISTER
+# REGISTER
 
 **POST** `/users`
 
     `{"jid":"szymon","password":"123456"}`
 
 
-#LOGIN
+# LOGIN
 
 **POST** `/login`
 
     `{"jid":"szymon","password":"123456"}`
 
-###RESPONSE
+### RESPONSE
 200 - OK
 ```
 {
@@ -67,8 +67,8 @@
 }
 ```
 
-##TYPES
-* ##message
+## TYPES
+* ## message
     ```
     {
       "type": "message",
@@ -82,7 +82,7 @@
       }
     }
     ```
-    #####Typing...
+    ##### Typing...
     ```
     {
       "type": "message",
@@ -98,7 +98,7 @@
       }
     }
     ```
-    #####Paused...
+    ##### Paused...
     ```
     {
       "type": "message",
@@ -112,7 +112,7 @@
       }
     }
     ```
-    #####Active...
+    ##### Active...
     ```
     {
       "type": "message",
@@ -127,7 +127,7 @@
     }
     ```
     
-* ##presence
+* ## presence
     ```
     {
       "type": "presence",
