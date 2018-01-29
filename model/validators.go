@@ -1,8 +1,6 @@
 package model
 
-import (
-	"strings"
-)
+import "strings"
 
 func JidValidator(jid string) error {
 
@@ -26,6 +24,7 @@ func PasswdValidator(pass string) error {
 		return &ValidationError{Field: "password", Message: "Blank",}
 
 	case len([]rune(pass)) < 6:
+		return &ValidationError{Field: "password", Message: "Password too short",}
 		return &ValidationError{Field: "password", Message: "Password too short",}
 	}
 	return nil

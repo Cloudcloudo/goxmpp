@@ -11,6 +11,3 @@ export function login(userData) {
         return false;
     });
 }
-
-
-// ASPMX.L.GOOGLE.COM/ALT1.ASPMX.L.GOOGLE.COM/ALT2.ASPMX.L.GOOGLE.COM/ALT3.ASPMX.L.GOOGLE.COM

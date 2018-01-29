@@ -122,6 +122,6 @@ export class MessageWindow extends React.Component {
   }
 
   scrollToBottom() {
-    this.messagesEnd.scrollTop = this.messagesEnd.scrollHeight + 20;
+    this.messagesEnd.scrollTop = this.messagesEnd.scrollHeight;
   }
 }

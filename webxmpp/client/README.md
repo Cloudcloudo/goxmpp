@@ -1,8 +1,3 @@
-# marketplace-web
-
-Marketplace web page in React.js
-
-
 ## Table of contents
 * [Setup](#user-content-setup)
 * [npm tasks](#user-content-npm-tasks)

@@ -30,8 +30,11 @@ func (c *User) Validate() error {
 	var errors ValidationErrors
 	errors.AddError(JidValidator(c.Jid))
 	errors.AddError(PasswdValidator(c.Password))
+	if len(errors.Errors) > 0 {
+		return &errors
 
-	return &errors
+	}
+	return nil
 }
 
 
