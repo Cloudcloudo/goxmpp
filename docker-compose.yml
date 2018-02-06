@@ -1,0 +1,19 @@
+# Use postgres/example user/password credentials
+version: '3.1'
+
+services:
+  postgres:
+    image: postgres:alpine
+    restart: "no"
+    environment:
+      POSTGRES_DB: goxmpp
+      POSTGRES_USER: goxmpp_user
+      POSTGRES_PASSWORD: aZ82w2E-aXwNch5
+
+    volumes:
+        - ./sql/create_schema.sql:/docker-entrypoint-initdb.d/10-init.sql
+        - ./sql/migration1.sql:/docker-entrypoint-initdb.d/20-migration1.sql
+        - ./sql/migration2.sql:/docker-entrypoint-initdb.d/20-migration2.sql
+
+    ports:
+      - 5432:5432

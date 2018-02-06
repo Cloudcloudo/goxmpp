@@ -1,3 +1,5 @@
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
 CREATE TABLE users (
   jid         TEXT PRIMARY KEY   NOT NULL,
   password    TEXT               NOT NULL,
@@ -27,14 +29,14 @@ CREATE TABLE users (
 
   avatar      TEXT               NULL,
 
-  presence    TEXT               NULL,
+  presence    TEXT               DEFAULT 'unavailable' NOT NULL,
   status      TEXT               NULL,
 
   UNIQUE (jid)
 );
 
 CREATE TABLE messages (
-  id         TEXT PRIMARY KEY   NOT NULL DEFAULT uuid_generate_v4(),,
+  id         TEXT PRIMARY KEY   NOT NULL DEFAULT uuid_generate_v4(),
   user_jid   TEXT REFERENCES users (jid),
   "from"     TEXT               NOT NULL,
   type       TEXT               NOT NULL,

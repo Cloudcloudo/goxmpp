@@ -147,7 +147,7 @@
     * dnd   -- do not disturb
     * xa    -- i will be later (extended away)
     
-* ##iq
+* ## iq
 
     ### get contact list
     ```
