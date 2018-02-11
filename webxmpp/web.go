@@ -171,6 +171,157 @@ func initStream(w http.ResponseWriter, req *http.Request) {
 					log.Println("bye! ", s.Status)
 					break
 				}
+
+			case *model.Iq:
+				if s.Bind != nil && s.Type == "set" {
+					client.User.ResourcePart = s.Bind.Resource
+					respBind := model.BindBind{
+						Jid: client.User.GetFullJid(),
+					}
+					resp := model.Iq{
+						ID:   s.ID,
+						Type: "result",
+						Bind: &respBind,
+					}
+					conn.WriteStanza("iq", resp)
+				} else if s.Session != nil && s.Type == "set" {
+					resp := model.Iq{
+						ID:      s.ID,
+						Type:    "result",
+						Session: s.Session,
+					}
+					conn.WriteStanza("iq", resp)
+				} else if s.Roster != nil && s.Type == "get" {
+					// Fetch contacts list request
+					resp := model.Iq{
+						ID:   s.ID,
+						Type: "result",
+						Roster: &model.Roster{
+							Item: service.GetUserContacts(client.User.Jid, db),
+						},
+					}
+					// send contacts
+					conn.WriteStanza("iq", resp)
+
+					// Send all contacts presence
+					presences := service.GetLocalContactsPresence(client.User, db)
+					conn.WriteStanza("presence", presences)
+
+					lastSeen, err := service.GetUserLastSeen(client.User, db)
+					if err != nil {
+						continue
+					}
+
+					messages, err := service.GetMyMessages(client.User, *lastSeen, db)
+					if err == nil && messages != nil && len(*messages) > 0 {
+						conn.WriteStanza("message", messages)
+					}
+
+				} else if s.To != "" && s.Stream != nil {
+					// File stream negotiation?
+					to := model.NewClient(s.To)
+					resp := model.Iq{
+						From:   client.User.Jid,
+						ID:     s.ID,
+						Type:   s.Type,
+						Error:  s.Error,
+						Stream: s.Stream,
+					}
+
+					receiver, ok := connPool.GetConnection(to)
+
+					if ok {
+						receiver.Msgch <- resp
+					} else {
+						// TODO send error reply, save in db
+						log.Println("Not sent")
+					}
+				} else if s.To != "" && s.QueryByteStream != nil {
+					// File accept negotiation?
+					to := model.NewClient(s.To)
+					resp := model.Iq{
+						From:            client.User.Jid,
+						ID:              s.ID,
+						Type:            s.Type,
+						Error:           s.Error,
+						QueryByteStream: s.QueryByteStream,
+					}
+
+					receiver, ok := connPool.GetConnection(to)
+
+					if ok {
+						receiver.Msgch <- resp
+					} else {
+						// TODO send error reply, save in db
+						log.Println("Not sent")
+					}
+				} else if to := model.NewClient(s.To); s.To != "" && to.User.Jid != "" {
+					// other iq requests to sb
+
+					resp := model.Iq{
+						From:            client.User.Jid,
+						ID:              s.ID,
+						Type:            s.Type,
+						Error:           s.Error,
+						QueryVersion:    s.QueryVersion,
+						QueryByteStream: s.QueryByteStream,
+					}
+
+					receiver, ok := connPool.GetConnection(to)
+
+					if ok {
+						receiver.Msgch <- resp
+					} else {
+						log.Println("Not sent ")
+					}
+				} else if s.DiscItms != nil {
+					// service discovery request
+					to := model.NewClient(s.To)
+
+					// client to our server
+					if to.User.LocalPart == "" && to.User.DomainPart == conf.Domain {
+						resp := model.Iq{
+							ID:       s.ID,
+							From:     conf.Domain,
+							To:       client.User.GetFullJid(),
+							Type:     "result",
+							DiscItms: &model.DiscItms{Item: []model.RosterEntry{}},
+						}
+						conn.WriteStanza("iq", resp)
+					}
+				} else if s.DiscInf != nil {
+					// service discovery info request
+					to := model.NewClient(s.To)
+
+					// client to our server
+					if to.User.LocalPart == "" && to.User.DomainPart == conf.Domain {
+						resp := model.Iq{
+							ID:      s.ID,
+							From:    conf.Domain,
+							To:      client.User.GetFullJid(),
+							Type:    "result",
+							DiscInf: &model.DiscInf{Item: ""},
+						}
+						conn.WriteStanza("iq", resp)
+					}
+				} else if s.Ping != nil {
+					// ping request
+					to := model.NewClient(s.To)
+
+					// client to our server
+					if to.User.LocalPart == "" && to.User.DomainPart == conf.Domain {
+						resp := model.Iq{
+							ID:   s.ID,
+							From: conf.Domain,
+							To:   client.User.GetFullJid(),
+							Type: "result",
+						}
+						conn.WriteStanza("iq", resp)
+					}
+				} else {
+					log.Println("Not implemented yet ", s)
+				}
+
 			case error:
 				return
 

@@ -156,8 +156,49 @@
       "payload": {
         "type": "get",
         "id": "12345",
-        "query": {"jabber:iq:roster"}
+        "query-roster": {}
       }
     }
+    ```
+    #### Response
+    ```
+    {
+      "type": "iq",
+      "payload": {
+        "id": "12345",
+        "type": "result",
+        "query-roster": {
+          "item": [{
+            "jid": "alicja@localhost",
+            "subscription": "both",
+            "name": "Alicja",
+            "group": []
+          }]
+        }
+      }
+    }
+    
+    {
+      "type": "presence",
+      "payload": [{
+        "from": "alicja@localhost",
+        "to": "szymon@localhost/browserClient",
+        "status": "Nam na imię Alicja"
+      }]
+    }
+    
+    {
+      "type": "message",
+      "payload": [{
+        "from": "alicja@localhost/dom",
+        "id": "06e8c3d2-f1f4-4020-832b-c1224d8014a2",
+        "to": "szymon@localhost/browserClient",
+        "type": "chat",
+        "body": "offline message",
+        "delay": {
+          "from": "alicja@localhost/dom",
+          "stamp": "2018-02-11T13:45:24Z"
+        }]
+      }
     ```
     

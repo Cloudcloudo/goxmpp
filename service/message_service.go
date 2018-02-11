@@ -10,6 +10,9 @@ import (
 )
 
 func SaveMessage(user model.User, msg model.ClientMessage, db *sql.DB) (*model.ClientMessage, error) {
+	if msg.Body == "" {
+		return nil, nil
+	}
 	var resp *model.ClientMessage
 
 	toJid := strings.Split(string(msg.To), "@")

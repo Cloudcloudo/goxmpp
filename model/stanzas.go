@@ -170,21 +170,21 @@ type Error struct {
 // Iq element
 type Iq struct {
 	// info/query
-	XMLName         xml.Name         `xml:"jabber:client iq"`
-	From            string           `xml:"from,attr,omitempty"`
-	ID              string           `xml:"id,attr"`
-	To              string           `xml:"to,attr,omitempty"`
-	Type            string           `xml:"type,attr"` // error, get, result, set
-	Error           *Error           `xml:"error,omitempty"`
-	Bind            *BindBind        `xml:"bind,omitempty"`
-	Roster          *Roster          `xml:"jabber:iq:roster query,omitempty"`
-	Session         *struct{}        `xml:"urn:ietf:params:xml:ns:xmpp-session session,omitempty"`
-	Stream          *Si              `xml:"si,omitempty"`
-	Ping            *struct{}        `xml:"urn:xmpp:ping ping,omitempty"`
-	QueryByteStream *QueryByteStream `xml:"http://jabber.org/protocol/bytestreams query,omitempty"`
-	QueryVersion    *QueryVersion    `xml:"jabber:iq:version query,omitempty"`
-	DiscItms        *DiscItms        `xml:"http://jabber.org/protocol/disco#items query"`
-	DiscInf         *DiscInf         `xml:"http://jabber.org/protocol/disco#info query"`
+	XMLName         xml.Name         `xml:"jabber:client iq" json:"-"`
+	From            string           `xml:"from,attr,omitempty" json:"from,omitempty"`
+	ID              string           `xml:"id,attr" json:"id"`
+	To              string           `xml:"to,attr,omitempty" json:"to,omitempty"`
+	Type            string           `xml:"type,attr" json:"type"` // error, get, result, set
+	Error           *Error           `xml:"error,omitempty" json:"error,omitempty"`
+	Bind            *BindBind        `xml:"bind,omitempty" json:"bind,omitempty"`
+	Roster          *Roster          `xml:"jabber:iq:roster query,omitempty" json:"query-roster,omitempty"`
+	Session         *struct{}        `xml:"urn:ietf:params:xml:ns:xmpp-session session,omitempty" json:"session,omitempty"`
+	Stream          *Si              `xml:"si,omitempty" json:"si,omitempty"`
+	Ping            *struct{}        `xml:"urn:xmpp:ping ping,omitempty" json:"ping,omitempty"`
+	QueryByteStream *QueryByteStream `xml:"http://jabber.org/protocol/bytestreams query,omitempty" json:"query-byte-stream,omitempty"`
+	QueryVersion    *QueryVersion    `xml:"jabber:iq:version query,omitempty" json:"query-version,omitempty"`
+	DiscItms        *DiscItms        `xml:"http://jabber.org/protocol/disco#items query" json:"disc-itms,omitempty"`
+	DiscInf         *DiscInf         `xml:"http://jabber.org/protocol/disco#info query" json:"disc-inf,omitempty"`
 }
 
 type DiscItms struct {
@@ -197,10 +197,10 @@ type DiscInf struct {
 }
 
 type QueryVersion struct {
-	XMLName xml.Name `xml:"jabber:iq:version query"`
-	Name    string   `xml:"name,omitempty"`
-	Version string   `xml:"version,omitempty"`
-	Os      string   `xml:"os,omitempty"`
+	XMLName xml.Name `xml:"jabber:iq:version query" json:"-"`
+	Name    string   `xml:"name,omitempty" json:"name"`
+	Version string   `xml:"version,omitempty" json:"version"`
+	Os      string   `xml:"os,omitempty" json:"os"`
 }
 
 // Si protocol element
