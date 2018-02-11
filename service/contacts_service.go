@@ -117,15 +117,17 @@ func AddUserContacts(user model.User, req model.Iq, db *sql.DB) (*model.Iq, erro
 
 		if item.Subscription == "" {
 
-			_, err := db.Query("SELECT jid  FROM contacts WHERE user_jid=$1 AND jid=$2", user.LocalPart, item.Jid)
-			switch {
-			case err == sql.ErrNoRows:
+			row := db.QueryRow("SELECT jid  FROM contacts WHERE user_jid=$1 AND jid=$2", user.LocalPart, item.Jid)
+			var jid string
+
+			switch err = row.Scan(&jid); err {
+			case sql.ErrNoRows:
 				item.Subscription = "both"
 				res, err = db.Exec(
 					"INSERT INTO contacts (user_jid, jid, \"group\", nick, subscrbed) VALUES ($1, $2, $3, $4, $5)",
 					user.LocalPart, item.Jid, pq.Array(item.Group), item.Name, item.Subscription)
 
-			case err == nil:
+			case nil:
 				res, err = db.Exec(
 					"UPDATE contacts SET \"group\"=$3, nick=$4 WHERE user_jid=$1 AND jid=$2",
 					user.LocalPart, item.Jid, pq.Array(item.Group), item.Name)
