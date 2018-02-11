@@ -205,7 +205,10 @@ func initStream(w http.ResponseWriter, req *http.Request) {
 
 					// Send all contacts presence
 					presences := service.GetLocalContactsPresence(client.User, db)
-					conn.WriteStanza("presence", presences)
+					if presences != nil && len(presences) > 0 {
+						conn.WriteStanza("presence", presences)
+					}
+
 
 					lastSeen, err := service.GetUserLastSeen(client.User, db)
 					if err != nil {

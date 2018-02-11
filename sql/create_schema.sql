@@ -30,7 +30,7 @@ CREATE TABLE users (
   avatar      TEXT               NULL,
 
   presence    TEXT               DEFAULT 'unavailable' NOT NULL,
-  status      TEXT               NULL,
+  status      TEXT               DEFAULT '' NOT NULL,
 
   UNIQUE (jid)
 );
