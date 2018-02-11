@@ -217,6 +217,14 @@ func initStream(w http.ResponseWriter, req *http.Request) {
 						conn.WriteStanza("message", messages)
 					}
 
+				} else if s.Roster != nil && s.Type == "set" {
+					//add contact
+					resp, err := service.AddUserContacts(client.User, *s, db)
+
+					if err != nil {
+						conn.WriteStanza("iq", resp)
+					}
+
 				} else if s.To != "" && s.Stream != nil {
 					// File stream negotiation?
 					to := model.NewClient(s.To)

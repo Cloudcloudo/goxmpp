@@ -108,3 +108,67 @@ func GetLocalContactsPresence(user model.User, db *sql.DB) []model.ClientPresenc
 	}
 	return entries
 }
+
+func AddUserContacts(user model.User, req model.Iq, db *sql.DB) (*model.Iq, error) {
+	var res sql.Result
+	var err error
+
+	for _, item := range req.Roster.Item {
+
+		if item.Subscription == "" {
+
+			_, err := db.Query("SELECT jid  FROM contacts WHERE user_jid=$1 AND jid=$2", user.LocalPart, item.Jid)
+			switch {
+			case err == sql.ErrNoRows:
+				item.Subscription = "both"
+				res, err = db.Exec(
+					"INSERT INTO contacts (user_jid, jid, \"group\", nick, subscrbed) VALUES ($1, $2, $3, $4, $5)",
+					user.LocalPart, item.Jid, pq.Array(item.Group), item.Name, item.Subscription)
+
+			case err == nil:
+				res, err = db.Exec(
+					"UPDATE contacts SET \"group\"=$3, nick=$4 WHERE user_jid=$1 AND jid=$2",
+					user.LocalPart, item.Jid, pq.Array(item.Group), item.Name)
+			}
+
+		} else if item.Subscription == "remove" {
+			res, err = db.Exec(
+				"DELETE FROM contacts WHERE user_jid=$1 AND jid=$2",
+				user.LocalPart, item.Jid)
+		}
+
+		if err != nil {
+			log.Printf("Error saving contact for user %s \n %s", user.GetFullJid(), err)
+			resp := &model.Iq{
+				ID:      req.ID,
+				To:      req.To,
+				From:    req.From,
+				Type:    "error",
+				Error: &model.Error{
+					Type: "cancel",
+					Text: "unable to save contact",
+				},
+			}
+
+			return resp, err
+		}
+		_, err = res.RowsAffected()
+		if err != nil {
+			log.Printf("Error saving contact for user %s \n %s", user.GetFullJid(), err)
+			resp := &model.Iq{
+				ID:      req.ID,
+				To:      req.To,
+				From:    req.From,
+				Type:    "error",
+				Error: &model.Error{
+					Type: "cancel",
+					Text: "unable to save contact",
+				},
+			}
+
+			return resp, err
+		}
+	}
+
+	return nil, nil
+}

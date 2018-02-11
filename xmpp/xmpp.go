@@ -207,6 +207,14 @@ func handleMessages(conn *Conn, client *model.Client) {
 						conn.WriteStanza(messages)
 					}
 
+				} else if s.Roster != nil && s.Type == "set" {
+					//add contact
+					resp, err := service.AddUserContacts(client.User, *s, db)
+
+					if err != nil {
+						conn.WriteStanza(resp)
+					}
+
 				} else if s.To != "" && s.Stream != nil {
 					// File stream negotiation?
 					to := model.NewClient(s.To)

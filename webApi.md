@@ -202,3 +202,45 @@
       }
     ```
     
+    ### ADD or EDIT contact
+    
+    ```
+    {
+      "type": "iq",
+      "payload": {
+        "id": "12345",
+        "type": "set",
+        "query-roster": {
+          "item": [{
+            "jid": "alicja@localhost",
+            "name": "Alicja z krainy czarów",
+            "group": ["Znajomi"]
+          }]
+        }
+      }
+    }
+    ```
+    
+    #### RESPONSE
+    nothing
+    
+    ### REMOVE contact
+        
+        ```
+        {
+          "type": "iq",
+          "payload": {
+            "id": "12345",
+            "type": "set",
+            "query-roster": {
+              "item": [{
+                "jid": "alicja@localhost",
+                "subscription": "remove"
+              }]
+            }
+          }
+        }
+        ```
+        
+        #### RESPONSE
+        nothing

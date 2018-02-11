@@ -227,7 +227,7 @@ type Roster struct {
 // RosterEntry element
 type RosterEntry struct {
 	Jid          string   `xml:"jid,attr" json:"jid"`
-	Subscription string   `xml:"subscription,attr" json:"subscription"` // 'none', 'to', 'both', 'from'
+	Subscription string   `xml:"subscription,attr" json:"subscription"` // 'none', 'to', 'both', 'from', 'remove'
 	Name         string   `xml:"name,attr" json:"name"`
 	Group        []string `xml:"group" json:"group"`
 }
